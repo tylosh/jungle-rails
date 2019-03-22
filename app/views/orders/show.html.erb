@@ -12,7 +12,11 @@
 
   <br>
   <p></p>
+  <br>
+  <p></p>
 
+  <h4> Order Details </h4>  
+  <p> Order placed by Email: <%= @order.email %> </p>
   <div class="panel panel-default items">
   <table class="table table-bordered">
     <thead>
@@ -24,8 +28,9 @@
       </tr>
     </thead>
     <tbody>
-      <% enhanced_cart.each do |item| %>
-        <%= render 'item', product: item[:product], quantity: item[:quantity].to_i %>
+      <% @order.line_items.each do |item| %>
+        <% puts item.id %>
+        <%= render 'item', product: item.product, quantity: item.quantity.to_i %>
       <% end %>
     </tbody>
     <tfoot>
@@ -34,7 +39,7 @@
           TOTAL:
         </th>
         <th>
-          <%= cart_subtotal_cents / 100.0 %>
+          <%= @order.total_cents / 100.0 %>
         </th>
       </tr>
     </tfoot>
@@ -42,8 +47,5 @@
 
   
 </div>
-
-<p> EMAIL HERE </p>
-
 
 </section>
