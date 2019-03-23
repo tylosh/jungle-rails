@@ -10,6 +10,9 @@ class OrdersController < ApplicationController
 
     if order.valid?
       empty_cart!
+      send_email!
+
+
       redirect_to order, notice: 'Your Order has been placed.'
     else
       redirect_to cart_path, flash: { error: order.errors.full_messages.first }
@@ -34,6 +37,18 @@ class OrdersController < ApplicationController
       currency:    'cad'
     )
   end
+
+  def send_email!
+    @user = User.find(params[:id])
+    
+    puts raise @user.inspect
+    
+    OrderMailer.with(user: @user).order_email.deliver_now
+
+      #format.html { redirect_to(@user, notice: 'User was successfully created.') }
+      #format.json { render json: @user, status: :created, location: @user }
+  end      
+      
 
   def create_order(stripe_charge)
     order = Order.new(
