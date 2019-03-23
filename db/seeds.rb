@@ -79,7 +79,7 @@ cat1.products.create!({
   name:  'Human Feet Shoes',
   description: Faker::Hipster.paragraph(4),
   image: open_asset('apparel6.jpg'),
-  quantity: 82,
+  quantity: 0,
   price: 224.50
 })
 
@@ -130,6 +130,45 @@ cat3.products.create!({
   image: open_asset('furniture3.jpg'),
   quantity: 23,
   price: 2_483.75
+})
+
+## USERS
+
+puts "Re-creating Users ..."
+
+User.destroy_all
+
+User.create!({
+  name: "Bob",
+  email: "bob@bob.com",
+  password_digest: "password"
+})
+
+## REVIEWS
+
+puts "Re-creating Reviews ..."
+
+Review.destroy_all
+
+Review.create!({
+  product_id: 1,
+  user_id: 1,
+  description: "Nice Shirt!",
+  rating: 5,
+})
+
+Review.create!({
+  product_id: 2,
+  user_id: 1,
+  description: "Cool pants",
+  rating: 4,
+})
+
+Review.create!({
+  product_id: 3,
+  user_id: 1,
+  description: "I like hats",
+  rating: 3,
 })
 
 
