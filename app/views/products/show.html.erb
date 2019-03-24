@@ -28,4 +28,17 @@
 
   </article>
 
+  <% # list reviews for product %>
+  <div class='reviews-list'>
+    <h4>Product Reviews</h4>
+    <ul>
+      <% @reviews.each do |review| %>
+        <li class="review"><%= User.find_by(id: review.user_id).name %>: 
+        
+        "<%= review.description %>"
+         | <strong> Rating:</strong> <%=review.rating %>/5
+      <% end %>
+    </ul>
+  </div>
+
 </section>
