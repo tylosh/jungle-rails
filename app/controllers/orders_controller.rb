@@ -1,16 +1,18 @@
 class OrdersController < ApplicationController
 
   def show
-    @order = Order.find(params[:id])
+      @order = Order.find(params[:id])
   end
 
   def create
     charge = perform_stripe_charge
     order  = create_order(charge)
+    @order = order
 
     if order.valid?
       empty_cart!
       redirect_to order, notice: 'Your Order has been placed.'
+      OrderConfirmEmail.order_confirm_email(@order).deliver
     else
       redirect_to cart_path, flash: { error: order.errors.full_messages.first }
     end
