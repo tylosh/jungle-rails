@@ -37,7 +37,12 @@
         
           <% if current_user %>
             Signed in as <%= current_user.name %> | <%= link_to "Logout", '/logout' %>
-        
+            <% else %>
+            <div class= "Login">
+            <a href="/login">Login </a>
+            <a href="/signup"> Signup </a> 
+            </div>
+
             <% end %>
             
           <ul class="dropdown-menu">
