@@ -37,7 +37,7 @@
         
         "<%= review.description %>"
          | <strong> Rating:</strong> <%=review.rating %>/5
-          <% if current_user.id == review.user_id %>
+          <% if current_user && current_user.id == review.user_id %>
             <% # how to delete a record? https://apidock.com/rails/ActiveRecord/Relation/delete %>
             <%= 'DELETE' %>
           <% end %>
