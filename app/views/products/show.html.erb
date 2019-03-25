@@ -32,32 +32,34 @@
   <div class='reviews-list'>
     <h4>Product Reviews</h4>
     <ul>
-      <% @reviews.each do |review| %>
+      <% @reviews.reverse_order.each do |review| %>
         <li class="review"><%= User.find_by(id: review.user_id).name %>: 
         
         "<%= review.description %>"
          | <strong> Rating:</strong> <%=review.rating %>/5
+          <% if current_user.id == review.user_id %>
+            <% # how to delete a record? https://apidock.com/rails/ActiveRecord/Relation/delete %>
+            <%= 'DELETE' %>
+          <% end %>
       <% end %>
     </ul>
   </div>
 
-  <% # Add a new review %>
-  <h4>Submit A Review:</h4>
-      <%= form_for :review, url: product_reviews_path(@product) do |f| %>
-      <label> Rating:</label>
-      <%=f.select :rating, [1,2,3,4,5] %>
-      </br>
-      <label> Description:</label>
-      <%=f.text_area :description, :input_html => {:rows => 10} %>
-      </br>
-      
-      <%= f.hidden_field :product_id, value: @product.id %>
-      <%= f.hidden_field :user_id, value: current_user.id %>
-      puts '----------------'
-      <%= @product.id %>
-      <%= current_user.id %>
-      
-      <%=f.submit "Create Review" %>
+  <% if current_user  %>
+    <% # Add a new review %>
+    <h4>Submit A Review:</h4>
+        <%= form_for :review, url: product_reviews_path(@product) do |f| %>
+        <label> Rating:</label>
+        <%=f.select :rating, [1,2,3,4,5] %>
+        </br>
+        <label> Description:</label>
+        <%=f.text_area :description, :input_html => {:rows => 10} %>
+        </br>
+        
+        <%= f.hidden_field :product_id, value: @product.id %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        
+        <%=f.submit "Create Review" %>
+    <% end %>
   <% end %>
-
 </section>
