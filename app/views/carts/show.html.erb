@@ -21,6 +21,7 @@
         <h1>My Cart</h1>
         </header>
 
+<<<<<<< HEAD
         <div class="panel panel-default items">
           <table class="table table-bordered">
             <thead>
@@ -48,6 +49,24 @@
             </tfoot>
           </table>
         </div>
+=======
+  <div class="row">
+    <div class="col-xs-12">
+      <%= form_tag orders_path do %>
+        <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-amount="<%= cart_subtotal_cents %>"
+          data-name="Jungle"
+          data-description="Khurram Virani's Jungle Order"
+          data-locale="auto"
+          data-email="tyfrfrto@hotmail.com"
+          data-currency="cad">
+        </script>
+      <% end %>
+    </div>
+  </div>
+>>>>>>> feature/order-receipt
 
         <div class="row">
           <div class="col-xs-12">
