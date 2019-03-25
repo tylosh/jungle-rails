@@ -51,6 +51,12 @@
       <%=f.text_area :description, :input_html => {:rows => 10} %>
       </br>
       
+      <%= f.hidden_field :product_id, value: @product.id %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      puts '----------------'
+      <%= @product.id %>
+      <%= current_user.id %>
+      
       <%=f.submit "Create Review" %>
   <% end %>
 
